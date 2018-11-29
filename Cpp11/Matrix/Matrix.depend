@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1543503775 source:d:\projekty\c++\matrix\exception.cpp
+	<iostream>
+	"Exception.h"
+
+1543503771 d:\projekty\c++\matrix\exception.h
+	<iostream>
+
+1543504092 source:d:\projekty\c++\matrix\main.cpp
+	<iostream>
+	"Matrix.h"
+
+1543504067 d:\projekty\c++\matrix\matrix.h
+	<iostream>
+
+1543504136 source:d:\projekty\c++\matrix\matrix.cpp
+	<iostream>
+	<iomanip>
+	"Matrix.h"
+	"Exception.h"
+
