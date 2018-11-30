@@ -1,3 +1,2 @@
 # IT Studies
-Small projects implemented during the IT studies.
-2017 - ...
+Small projects implemented during the IT studies (started in 2017).
