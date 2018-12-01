@@ -1,2 +1,2 @@
 # Adventure Game
-Pracownia 14 - Gra przygodowa
+Gra przygodowa - Pracownia 14
