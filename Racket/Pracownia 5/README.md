@@ -1,2 +1,2 @@
-# Projects implemented in Racket - implementation of Scheme, which is a dialect of the Lisp language.
-It was fun.
+# Basic implementation of resolution
+Podstawowa implementacja rezolucji - Pracownia 5A
