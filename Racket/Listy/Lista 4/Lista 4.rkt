@@ -74,7 +74,15 @@
       null
       (append (car xs) (concat (cdr xs)))))
 
+(define (concat-iter xs)
+  (define (helper xs acc)
+    (if (null? xs)
+        acc
+        (helper (cdr xs) (append acc (car xs)))))
+  (helper xs null))
+
 ;(concat '( (1 2 3) (4 5 6) (7 8 9) ))
+;(concat-iter '( (1 2 3) (4 5 6) (7 8 9) ))
 
 ;;Zad.2
 (define (mirror t)
@@ -108,7 +116,30 @@
 ;(treesort-helper '(7 3 1 5 9 11 8))
 ;(treesort '(7 3 1 5 9 11 8))
 
+;;Zad.5
+(define (find-min t)
+  (if (leaf? (node-left t))
+      (node-elem t)
+      (find-min (node-left t))))
 
+;(find-min tree)
+
+(define (delete-min t)
+  (if (leaf? (node-left t))
+      (node-right t)
+      (make-node (node-elem t) (delete-min (node-left t)) (node-right t))))
+
+;(delete-min tree)
+
+(define (delete x t)
+  (cond
+    [(leaf? t) leaf]
+    [(= x (node-elem t)) leaf]
+    [(< x (node-elem t)) (make-node (node-elem t) (delete x (node-left t)) (node-right t))]
+    [(> x (node-elem t)) (make-node (node-elem t) (node-left t) (delete x (node-right t)))]))
+
+;(delete 5 tree)
+;(delete 9 tree)
 
 
 
