@@ -1,19 +1,16 @@
-select semestr.semestr_id, uzytkownik.nazwisko, wybor.data
-from wybor join uzytkownik using (kod_uz)
-		   join grupa using (kod_grupy)
+with POM as (
+select wybor.kod_grupy, count(distinct wybor.kod_uz) as "liczba"
+from wybor join grupa using (kod_grupy)
 		   join przedmiot_semestr using (kod_przed_sem)
 		   join semestr using (semestr_id)
-where semestr.nazwa like 'Semestr letni%'
-group by semestr.semestr_id, uzytkownik.nazwisko, wybor.data
-having (wybor.data) <= all (
-	select wybor.data
-	from wybor join uzytkownik using (kod_uz)
-			   join grupa using (kod_grupy)
-			   join przedmiot_semestr using (kod_przed_sem)
-		   	   join semestr using (semestr_id)
-	where semestr.nazwa like 'Semestr letni%'	
+where semestr.nazwa='Semestr letni 2016/2017'
+and grupa.rodzaj_zajec='w'
+group by wybor.kod_grupy
 )
-order by uzytkownik.nazwisko asc
+
+select avg(liczba) from POM
+
+
 
 
 
