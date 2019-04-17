@@ -1,2 +1,2 @@
-# IT Studies
-Small projects implemented during the IT studies (started in 2017).
+# Computer science studies
+Small projects implemented during the CS studies (started in 2017).
