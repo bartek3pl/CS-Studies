@@ -162,5 +162,51 @@
     
 ;(convert-to-nnf (neg (conj (neg (conj 'a 'd)) (disj 'b 'd))))
 
+;;Zad.6
+(define (cnf? f)
+  (cond
+    [(literal? f) #t]
+    [(neg? f) #f]
+    [(conj? f) #t]
+    [(disj? f) (and (cnf? (disj-left f))
+                    (cnf? (disj-right f))
+                    (not (conj? (disj-left f)))
+                    (not (conj? (disj-right f))))]
+    ))
 
+(define (cnf l r)
+  (list 'cnf l r))
+
+(define (cnf-left f)
+  (cadr f))
+
+(define (cnf-right f)
+  (caddr f))
+
+(define (convert-to-cnf f)
+  (cond
+    [(var? f) f]
+    [(neg? f) (convert-to-cnf (neg-to-nnf (neg-subf f)))]
+    [(conj? f)
+     (cond
+       [(cnf? f) f]
+       [else (conj (convert-to-cnf (conj-left f))
+                   (convert-to-cnf (conj-right f)))]
+       )]
+    [(disj? f)
+     (cond
+       [(cnf? f) f]
+       [(literal? (disj-left f)) (conj (convert-to-cnf (disj (disj-left f)
+                                                             (conj-left (convert-to-cnf (disj-right f)))))
+                                       (convert-to-cnf (disj (disj-left f)
+                                                             (conj-right (convert-to-cnf (disj-right f))))))]
+       [(literal? (disj-right f)) (conj (convert-to-cnf (disj (conj-left (convert-to-cnf (disj-left f)))
+                                                              (disj-right f)))
+                                        (convert-to-cnf (disj (conj-right (convert-to-cnf (disj-left f)))
+                                                              (disj-right f))))]
+       [else (conj (convert-to-cnf (disj (conj (disj-left (convert-to-cnf (disj-left f)))
+                                               (disj-right (convert-to-cnf (disj-left f))))
+                                         (disj-left (convert-to-cnf (disj-right f)))))
+                                   (disj-right (convert-to-cnf (disj-right f))))])] 
+    ))
       
