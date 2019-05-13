@@ -21,9 +21,11 @@ N0:
     cmp %rdx, %rdi 		  
     #jesli wejscie mniejsze rowne od maski to wykonujemy ponizsze 2 instrukcje
     #wpp skaczemy do kolejnego bloku
-    ja N1 
-    add $32, %rax #dodajemy do wyniku liczbe zer wiadacych (32)
-    shl $32, %rdi #przesuwamy bity wejscia o 32 miejsca w lewo
+    ja N1
+	#dodajemy do wyniku liczbe zer wiadacych (32)
+    add $32, %rax
+	#przesuwamy bity wejscia o 32 miejsca w lewo
+    shl $32, %rdi 
     
     #kazdy kolejny blok jest analogiczny
 N1:    
