@@ -172,14 +172,25 @@
 (define (optimize e)
   (remove-unused-expr e (find-used e)))
 
-(optimize (let-expr 'x (op '+ (const 2) (const 2))
-                    (let-expr 'y (op '* (const 3) (var 'x))
-                      (op '+ (const 7) (var 'x)))))
+;(optimize (let-expr 'x (op '+ (const 2) (const 2))
+;                    (let-expr 'y (op '* (const 3) (var 'x))
+;                      (op '+ (const 7) (var 'x)))))
      
-    
+;;Zad.7
+;(define (find-last-pair xs)
+;  (if (null? (mcdr xs))
+;      (mcar xs)
+;      (find-last-pair (mcdr xs))))
 
+(define (make-cycle xs)
+  (define (helper xs fst)
+    (if (null? (mcdr xs))
+        (begin (set-mcdr! xs fst)
+               fst)
+        (helper (mcdr xs) fst)))
+  (helper xs xs))
 
-
+(define mlist (mcons 1 (mcons 2 (mcons 3 (mcons 4 (mcons 5 '()))))))
 
 
 
