@@ -41,19 +41,24 @@
           (cons (car xs) (filter f (cdr xs)))
           (filter f (cdr xs)))))
 
-;kontrakt zależny (źle)
+;kontrakt zależny
+(define/contract (contains l1 l2)
+  (-> list? list? boolean?)
+  (if (andmap (lambda (x) (member x l1)) l2)
+      #t
+      #f))
+
 (define/contract (filter2 f xs)
-  (parametric->/c [a]
-                  (->i ([p (-> a boolean?)]
-                        [l (listof a)])
-                       [result (p l) (lambda (x) x)]))
+  (->i ([p (-> any/c boolean?)]
+        [l list?])
+       [result list?]
+       #:post (l result)
+       (contains l result))
   (if (null? xs)
       null
       (if (f (car xs))
           (cons (car xs) (filter f (cdr xs)))
           (filter f (cdr xs)))))
-
-;(foldr and #t (map f xs))
 
 ;;Zad.3
 ;sygnatura monoidów z prostymi kontraktami
