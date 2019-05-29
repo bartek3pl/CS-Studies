@@ -110,30 +110,75 @@
 ;Dla liczb
 ;(define-values/invoke-unit/infer monoid1@)
 ;Dla list
-(define-values/invoke-unit/infer monoid2@)
-
-;a) neutral jest lewostronnym i prawostronnym elementem
-;   neutralnym operacji oper
-;b) operacja oper jest łączna
+;(define-values/invoke-unit/infer monoid2@)
 
 ;Dla liczb
-(quickcheck
- (property ([x arbitrary-integer]
-            [y arbitrary-integer])
-           (eq? x (oper x neutral))
-           (eq? x (oper neutral x))
-           (eq? (oper (oper x y) y) (oper x (oper y y)))))
-
+;(quickcheck
+; (property ([x arbitrary-integer]
+;            [y arbitrary-integer])
+;           (eq? x (oper x neutral))
+;           (eq? x (oper neutral x))
+;           (eq? (oper (oper x y) y) (oper x (oper y y)))))
+;
 ;Dla list
-(quickcheck
- (property ([xs (arbitrary-list arbitrary-symbol)]
-            [ys (arbitrary-list arbitrary-symbol)])
-           (eq? xs (oper xs neutral))
-           (eq? xs (oper neutral xs))
-           (equal? (oper (oper xs ys) ys) (oper xs (oper ys ys)))))
+;(quickcheck
+; (property ([xs (arbitrary-list arbitrary-symbol)]
+;            [ys (arbitrary-list arbitrary-symbol)])
+;           (eq? xs (oper xs neutral))
+;           (eq? xs (oper neutral xs))
+;           (equal? (oper (oper xs ys) ys) (oper xs (oper ys ys)))))
 
+;;Zad.5
+(define-signature set^
+  ((contracted
+    [empty-set null?]
+    [set? (-> any/c boolean?)]
+    [empty-set? (-> set? boolean?)]
+    [member? (-> integer? set? boolean?)]
+    [set-sing (-> integer? set?)]
+    [set-union (-> set? set? set?)]
+    [set-inter (-> set? set? set?)]
+    )))
 
+(define-unit set@
+  (import)
+  (export set^)
+
+  (define empty-set null)
+  
+  (define (set? s)
+    (or (empty-set? s)
+        (and (list? s)
+             (andmap integer? s))))
+
+  (define (empty-set? s)
+    (eq? s empty-set))
+
+  (define (member? int s)
+    (if (member int s) #t #f))
+
+  (define (set-sing int)
+    (list int))
+
+  (define (set-union s1 s2)
+    (remove-duplicates (append s1 s2)))
+
+  (define (set-inter s1 s2)
+    (if (empty-set? s1)
+        empty-set
+        (if (member (car s1) s2)
+            (cons (car s1) (set-inter (cdr s1) s2))
+            (set-inter (cdr s1) s2))))
+  )
             
+(define-values/invoke-unit/infer set@)
 
+;empty-set
+;(empty-set? null)
+;(set? '(1 2 3))
+;(member? 2 '(1 2 3))
+;(set-sing 42)
+;(set-union '(1 2 3) '(3 4 5))
+;(set-inter '(1 2 3) '(3 4 5))
 
 
