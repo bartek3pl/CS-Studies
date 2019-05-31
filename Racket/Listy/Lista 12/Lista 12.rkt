@@ -169,11 +169,13 @@
     (remove-duplicates (append s1 s2)))
 
   (define (set-inter s1 s2)
-    (if (empty-set? s1)
-        empty-set
-        (if (member (car s1) s2)
-            (cons (car s1) (set-inter (cdr s1) s2))
-            (set-inter (cdr s1) s2))))
+    (define (helper s1 s2)
+      (if (empty-set? s1)
+          empty-set
+          (if (member (car s1) s2)
+              (cons (car s1) (set-inter (cdr s1) s2))
+              (set-inter (cdr s1) s2))))
+    (helper (remove-duplicates s1) (remove-duplicates s2)))
   )
             
 (define-values/invoke-unit/infer set@)
@@ -185,5 +187,35 @@
 ;(set-sing 42)
 ;(set-union '(1 2 3) '(3 4 5))
 ;(set-inter '(1 2 3) '(3 4 5))
+
+;;Zad.6
+(define (member-all? xs ys)
+  (if (null? xs)
+      #t
+      (if (member (car xs) ys)
+          (member-all? (cdr xs) ys)
+          #f)))
+
+(quickcheck
+ (property ([xs (arbitrary-list arbitrary-integer)]
+            [ys (arbitrary-list arbitrary-integer)]
+            [zs (arbitrary-list arbitrary-integer)]
+            [x arbitrary-integer])
+            (and (empty-set? empty-set) (null? empty-set))
+            (equal? (set-sing x) (remove-duplicates (set-sing x)))
+            (or (member-all? (set-union xs ys) xs) (member-all? (set-union xs ys) ys))
+            (and (member-all? (set-inter xs ys) xs) (member-all? (set-inter xs ys) ys))
+            (equal? (set-union xs (set-inter ys zs)) (set-inter (set-union xs ys) (set-union xs zs)))
+            (equal? (sort (set-inter xs (set-union ys zs)) >) (sort (set-union (set-inter xs ys) (set-inter xs zs)) >))
+            )) 
+            
+
+
+
+
+
+
+
+
 
 
