@@ -9,10 +9,10 @@
     (if (null? xs)
         (cons acc xs)
         (cons acc
-              (helper (cdr xs) (append acc (list (car xs)))))))  
-  (helper xs null))
+              (helper (cdr xs) (append (list (car xs)) acc)))))  
+  (helper (reverse xs) null))
 
-;(suffixes '(1 2 3 4))
+(suffixes '(1 2 3 4))
 
 ;;Zad.2
 (define (sublists xs)
