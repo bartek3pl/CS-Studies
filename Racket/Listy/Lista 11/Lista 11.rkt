@@ -12,7 +12,7 @@
               (helper (cdr xs) (append (list (car xs)) acc)))))  
   (helper (reverse xs) null))
 
-(suffixes '(1 2 3 4))
+;(suffixes '(1 2 3 4))
 
 ;;Zad.2
 (define (sublists xs)
