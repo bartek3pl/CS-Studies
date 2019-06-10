@@ -154,7 +154,7 @@
 (define (neg-to-nnf f)
   (cond
     [(var? f) (neg f)]
-    [(neg? f) (neg-subf f)]
+    [(neg? f) (convert-to-nnf (neg-subf f))]
     [(conj? f) (disj (neg-to-nnf (conj-left f))
                      (neg-to-nnf (conj-right f)))]
     [(disj? f) (conj (neg-to-nnf (disj-left f))
