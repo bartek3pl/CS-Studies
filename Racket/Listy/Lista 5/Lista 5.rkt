@@ -104,7 +104,7 @@
 (define (get-val x val)
   (if (null? x)
       null
-      (equal? '(#t) (cdar (filter (lambda (i) (eq? (car i) x)) val))))) ;;'(#t)->#t
+      (second (car (filter (lambda (i) (eq? (car i) x)) val))))) 
 
 ;(get-val 'a '((a #f) (b #t)))
 ;(get-val 'b '((a #f) (b #t)))
@@ -120,6 +120,15 @@
  
 
 ;(eval-formula f2 vxs)
+
+(define (falsifiable-eval? t)
+  (define (helper t vals)
+    (if (eval-formula t (car vals))
+        (helper t (cdr vals))
+        (car vals)))
+  (helper t (gen-vals (free-vars t))))
+
+;(falsifiable-eval? (disj 'a (disj 'b 'c)))
 
 ;;Zad.4
 (define (literal? f)
