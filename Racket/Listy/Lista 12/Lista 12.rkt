@@ -60,6 +60,26 @@
           (cons (car xs) (filter f (cdr xs)))
           (filter f (cdr xs)))))
 
+;kontrakt parametryczny rozszerzony do zależnego
+(define (contains? l1 l2)
+  (andmap (lambda (x) (member x l2)) l1))
+
+(define (contains/c l)
+  (lambda (l2) (contains? l l2)))
+
+(define/contract (filter3 f xs)
+  (parametric->/c [a]
+                  (->i ([f (-> a boolean?)]
+                        [xs (listof a)])
+                       [result (xs) (listof a)]
+                       #:post (xs)
+                       (contains/c xs)))
+  (if (null? xs)
+      null
+      (if (f (car xs))
+          (cons (car xs) (filter3 f (cdr xs)))
+          (filter3 f (cdr xs)))))
+
 ;;Zad.3
 ;sygnatura monoidów z prostymi kontraktami
 (define-signature monoid^
