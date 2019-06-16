@@ -14,7 +14,7 @@
   (< (dist x y) 0.00001))
 
 (define sqrt/c
-  (->i ([l positive?])
+  (->i ([l (and/c (not/c negative?) real?)])
        [result (l) (lambda (x) (close-enough? l (* x x)))]))
 
 (define/contract (my-sqrt x)
