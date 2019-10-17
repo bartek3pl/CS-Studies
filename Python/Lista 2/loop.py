@@ -11,19 +11,15 @@ class Loop(Program):
 
   def execute(self):
     if isinstance(self.cond, Program):
-      for _ in range(self.cond.execute()):
-        if isinstance(self.arg1, Expression):
-          val = self.arg1.calculate()
-        elif isinstance(self.arg1, Program):
-          val = self.arg1.execute()
-        print("Current value:", val)
-
+      condCall = self.cond.execute()
     elif isinstance(self.cond, Expression):
-      for _ in range(self.cond.calculate()):
-        if isinstance(self.arg1, Expression):
-          val = self.arg1.calculate()
-        elif isinstance(self.arg1, Program):
-          val = self.arg1.execute()
-        print("Current value:", val)
+      condCall = self.cond.calculate()
+
+    for _ in range(condCall):
+      if isinstance(self.arg1, Expression):
+        val = self.arg1.calculate()
+      elif isinstance(self.arg1, Program):
+        val = self.arg1.execute()
+      print("Current value:", val)
 
     return val
