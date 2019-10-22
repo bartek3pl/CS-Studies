@@ -12,9 +12,7 @@ class Expression:
   def isProper(self):
     val1 = isinstance(self.arg1, Expression) or self.isNumeric(self.arg1) 
     val2 = isinstance(self.arg2, Expression) or self.isNumeric(self.arg2)
-    if val1 and val2:
-      return True
-    return False
+    return val1 and val2
 
   def calculate(self):
     return self.arg1.calculate()

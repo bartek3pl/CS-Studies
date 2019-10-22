@@ -12,9 +12,7 @@ class Program(Expression):
   def isProper(self):
     val1 = isinstance(self.arg1, Program)
     val2 = isinstance(self.arg2, Program)
-    if val1 and val2:
-      return True
-    return False
+    return val1 and val2
 
   def execute(self):
     return self.arg1.execute()

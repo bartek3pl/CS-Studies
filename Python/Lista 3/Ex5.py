@@ -19,18 +19,23 @@ def compress(text):
 
 def decompress(text):
   decompressed_text = []
+  temp = ""
 
   for i in range(len(text)):
-    if text[i].isnumeric():
-      decompressed_text.append((int(text[i]) - 1) * text[i + 1])
+    while i != len(text) and text[i].isnumeric():
+      temp += text[i]
+      i += 1
+    if temp: 
+      decompressed_text.append((int(temp) - 1) * text[i])
     else:
       decompressed_text.append(text[i])
+    temp = ""
 
   return ''.join(decompressed_text)
 
 
-compressed_text = "2C2ol s3u2m4er w4ith gr2andm9a."
-decompressed_text = "CCool suuummeeeer wiiiith graandmaaaaaaaaa."
+compressed_text = "2C2ol s3u2m4er w4ith gr2andm20a."
+decompressed_text = "CCool suuummeeeer wiiiith graandmaaaaaaaaaaaaaaaaaaaa."
 
 print(compress(decompress(compressed_text)))
 print(decompress(compress(decompressed_text)))

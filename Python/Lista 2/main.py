@@ -36,7 +36,7 @@ print(str(expr3) + " = " + str(expr3.execute()))
 #print(varX.setValue(Const(1))) #x = 1
 #print(varX.getValue()) #1
 
-expr5 = Loop(IfCond(Const(0), Const(1), Const(2)), Const(7)) 
+expr5 = Loop(IfCond(Const(0), Const(1), Const(2)), varY.setValue(Add(varY, Const(1)))) 
 
 print(str(expr5) + " = " + str(expr5.execute()))
 
