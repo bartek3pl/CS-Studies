@@ -1,3 +1,4 @@
+import copy
 
 sudoku_field = [
     [0, 0, 0, 0, 8, 0, 0, 0, 0],
@@ -14,7 +15,7 @@ sudoku_field = [
 
 def sudoku_solver():
     size = len(sudoku_field)
-    result_field = sudoku_field
+    result_field = copy.deepcopy(sudoku_field)
 
     def can_insert(y, x, i):
         for m in range(size):
@@ -34,7 +35,7 @@ def sudoku_solver():
 
     def solve(y, x):
         if (sudoku_field[y][x] == 0):
-            for i in range(1, size + 1):
+            for i in range(1, size + 1):  # 1 to 9
                 if(can_insert(y, x, i)):
                     result_field[y][x] = i
                     if (next(y, x)):
