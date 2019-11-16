@@ -36,7 +36,7 @@ def check_HTML(html):
                     f"{count} | Change from {prev_tag} to {cur_tag} in line {line_index}.")
 
     prev_tags = html_tags
-    return html_tags
+    return ""
 
 
 def watch_HTML(url, wait_seconds):
@@ -49,4 +49,4 @@ def watch_HTML(url, wait_seconds):
 
 
 watch_HTML("bartek3pl.github.io/Github-Users-Finder/", 20)
-watch_HTML("https://www.geeksforgeeks.org/", 60)
+watch_HTML("geeksforgeeks.org/", 60)
