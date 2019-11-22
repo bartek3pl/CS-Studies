@@ -22,8 +22,8 @@ class RunHtmlWatcherInThreads():
 
 
 html_watchers = [
-    ["bartek3pl.github.io/Github-Users-Finder/", 4, 24],
-    ["geeksforgeeks.org/", 5, 15]
+    ["bartek3pl.github.io/Github-Users-Findesr/", 4, 24],
+    ["geeksforgeekss.org/", 5, 15]
 ]
 
 html_watcher_in_threads = RunHtmlWatcherInThreads(html_watchers)
