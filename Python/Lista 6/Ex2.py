@@ -2,6 +2,7 @@
 from bs4 import BeautifulSoup
 import requests
 import time
+import sys
 
 
 class HtmlWatcher():
@@ -11,7 +12,11 @@ class HtmlWatcher():
         self.prev_tags = []
 
     def __get_HTML_from_website(self, url):
-        get_from_url = requests.get("http://" + url)
+        try:
+            get_from_url = requests.get("http://" + url)
+        except requests.exceptions.RequestException as e:
+            print(e)
+            sys.exit(1)
         return get_from_url.text
 
     def __check_HTML(self, html):
